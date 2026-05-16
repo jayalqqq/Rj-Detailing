@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="RJ Detailing — mobile auto detailing serving Pleasanton, Walnut Creek, Danville, Concord, Dublin, and San Ramon. We come to you.">
+<title>RJ Detailing | Mobile Auto Detailing — Pleasanton, Walnut Creek, Danville, Concord, Dublin, San Ramon</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --black: #0D0D0D;
+    --gold: #C9A84C;
+    --gold-light: #e0bc6e;
+    --gold-dim: rgba(201,168,76,0.15);
+    --silver: #B0B8C1;
+    --white: #F4F5F7;
+    --gray: #161616;
+    --gray2: #1f1f1f;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--black); color: var(--white); font-family: 'DM Sans', sans-serif; font-weight: 300; overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 60px;
+    background: rgba(10,10,10,0.94);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--gold-dim);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .logo-mark { width: 36px; height: 36px; background: var(--gold); border-radius: 2px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .logo-mark svg { width: 22px; height: 22px; }
+  .nav-logo-text { font-family: 'Bebas Neue', sans-serif; font-size: 21px; letter-spacing: 4px; color: var(--white); }
+  .nav-logo-text span { color: var(--gold); }
+  .nav-links { display: flex; gap: 32px; list-style: none; align-items: center; }
+  .nav-links a { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--silver); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta { background: var(--gold) !important; color: var(--black) !important; padding: 10px 20px !important; border-radius: 2px; font-weight: 500 !important; }
+  .nav-cta:hover { background: var(--gold-light) !important; }
+  .nav-phone {
+    font-family: 'DM Mono', monospace; font-size: 13px; letter-spacing: 1px;
+    color: var(--gold); text-decoration: none; white-space: nowrap;
+    display: flex; align-items: center; gap: 7px; transition: color 0.2s;
+    border: 1px solid rgba(201,168,76,0.3); padding: 8px 14px; border-radius: 2px;
+  }
+  .nav-phone:hover { color: var(--gold-light); border-color: var(--gold-light); }
+  .nav-toggle { display: none; background: none; border: none; cursor: pointer; color: var(--white); font-size: 22px; }
+
+  /* FLOATING QUOTE BTN */
+  .float-quote {
+    position: fixed; bottom: 28px; right: 28px; z-index: 300;
+    background: var(--gold); color: var(--black);
+    font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; font-weight: 500;
+    padding: 13px 22px; border-radius: 2px; text-decoration: none;
+    box-shadow: 0 6px 28px rgba(201,168,76,0.35);
+    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .float-quote:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 10px 36px rgba(201,168,76,0.45); }
+
+  /* HERO */
+  .hero { min-height: 100vh; display: flex; align-items: center; padding: 140px 60px 80px; position: relative; overflow: hidden; }
+  .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 60% 50% at 72% 50%, rgba(27,58,92,0.3) 0%, transparent 70%), radial-gradient(ellipse 30% 40% at 15% 85%, rgba(201,168,76,0.07) 0%, transparent 60%); }
+  .hero-grid { position: absolute; inset: 0; background-image: linear-gradient(var(--gold-dim) 1px, transparent 1px), linear-gradient(90deg, var(--gold-dim) 1px, transparent 1px); background-size: 64px 64px; opacity: 0.4; }
+  .hero-content { position: relative; z-index: 2; max-width: 700px; }
+  .hero-eyebrow { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 28px; opacity: 0; animation: fadeUp 0.8s 0.2s forwards; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .hero-eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--gold); flex-shrink: 0; }
+  .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(72px, 10vw, 128px); line-height: 0.9; letter-spacing: 2px; color: var(--white); margin-bottom: 28px; opacity: 0; animation: fadeUp 0.8s 0.4s forwards; }
+  .hero-title em { font-style: normal; color: var(--gold); display: block; }
+  .hero-sub { font-size: 17px; line-height: 1.75; color: var(--silver); max-width: 460px; margin-bottom: 48px; opacity: 0; animation: fadeUp 0.8s 0.6s forwards; }
+  .hero-actions { display: flex; gap: 14px; align-items: center; opacity: 0; animation: fadeUp 0.8s 0.8s forwards; flex-wrap: wrap; }
+
+  /* BUTTONS */
+  .btn-primary { background: var(--gold); color: var(--black); font-family: 'DM Mono', monospace; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; padding: 15px 32px; border: none; border-radius: 2px; cursor: pointer; text-decoration: none; font-weight: 500; transition: background 0.2s, transform 0.15s; display: inline-block; }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+  .btn-ghost { color: var(--white); font-family: 'DM Mono', monospace; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; padding: 15px 32px; border: 1px solid rgba(255,255,255,0.18); border-radius: 2px; cursor: pointer; text-decoration: none; transition: border-color 0.2s, color 0.2s; display: inline-block; }
+  .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* TRUST BAR */
+  .trust-bar { display: flex; border-top: 1px solid var(--gold-dim); border-bottom: 1px solid var(--gold-dim); background: var(--gray); }
+  .trust-item { flex: 1; padding: 26px 32px; display: flex; align-items: center; gap: 14px; border-right: 1px solid var(--gold-dim); }
+  .trust-item:last-child { border-right: none; }
+  .trust-num { font-family: 'Bebas Neue', sans-serif; font-size: 40px; color: var(--gold); line-height: 1; }
+  .trust-label { font-size: 11px; color: var(--silver); line-height: 1.5; text-transform: uppercase; letter-spacing: 1px; }
+
+  /* SECTIONS */
+  section { padding: 100px 60px; }
+  .section-eyebrow { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
+  .section-eyebrow::before { content: ''; width: 22px; height: 1px; background: var(--gold); }
+  .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(40px, 5.5vw, 66px); letter-spacing: 1px; line-height: 1; color: var(--white); margin-bottom: 16px; }
+  .section-sub { font-size: 16px; color: var(--silver); max-width: 500px; line-height: 1.75; margin-bottom: 52px; }
+
+  /* GALLERY */
+  #gallery { background: #0e0e0e; padding: 80px 0 70px; }
+  .gallery-header { padding: 0 60px; margin-bottom: 44px; }
+  .gallery-main {
+    position: relative; height: 540px; overflow: hidden;
+    background: #0a0a0a;
+  }
+  .gallery-main > img {
+    width: 100%; height: 100%; object-fit: cover; object-position: center;
+    transition: opacity 0.4s ease; display: block;
+  }
+  .gallery-thumbs {
+    display: flex; gap: 4px; margin-top: 4px;
+    overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none;
+  }
+  .gallery-thumbs::-webkit-scrollbar { display: none; }
+  .gallery-thumb {
+    flex: 1; min-width: 90px; height: 96px;
+    overflow: hidden; cursor: pointer; flex-shrink: 0;
+    border: 2px solid transparent; transition: border-color 0.2s;
+  }
+  .gallery-thumb.active { border-color: var(--gold); }
+  .gallery-thumb img {
+    width: 100%; height: 100%; object-fit: cover; object-position: center;
+    display: block; transition: opacity 0.3s;
+  }
+
+  /* SERVICES */
+  #services { background: var(--gray); }
+  .packages { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--gold-dim); }
+  .package { background: var(--gray); padding: 44px 36px; transition: background 0.25s; }
+  .package:hover { background: #1c1c1c; }
+  .package.featured { background: #111; border: 1px solid rgba(201,168,76,0.4); }
+  .package.featured:hover { background: #141414; }
+  .pkg-tag { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+  .pkg-name { font-family: 'Bebas Neue', sans-serif; font-size: 36px; letter-spacing: 1px; color: var(--white); margin-bottom: 6px; }
+  .pkg-divider { width: 28px; height: 1px; background: var(--gold); margin: 16px 0; }
+  .pkg-note { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 1px; color: var(--silver); margin-bottom: 20px; font-style: italic; }
+  .pkg-features { list-style: none; margin-bottom: 32px; }
+  .pkg-features li { font-size: 14px; color: var(--silver); padding: 9px 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 10px; }
+  .pkg-features li::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+
+  /* QUOTE SECTION */
+  #quote { background: var(--gray2); border-top: 1px solid var(--gold-dim); border-bottom: 1px solid var(--gold-dim); }
+  .quote-wrap { display: grid; grid-template-columns: 1fr 1.4fr; gap: 80px; align-items: start; }
+  .quote-left h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(38px, 4.5vw, 58px); color: var(--white); letter-spacing: 1px; line-height: 1.05; margin-bottom: 16px; }
+  .quote-left h2 span { color: var(--gold); }
+  .quote-left p { color: var(--silver); font-size: 15px; line-height: 1.75; margin-bottom: 32px; }
+  .quote-perks { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .quote-perks li { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--silver); }
+  .quote-perks li::before { content: '✦'; color: var(--gold); font-size: 10px; flex-shrink: 0; }
+
+  /* FORM */
+  .quote-form { background: var(--gray); border: 1px solid var(--gold-dim); padding: 44px 40px; }
+  .form-group { margin-bottom: 16px; }
+  .form-group label { display: block; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--silver); margin-bottom: 7px; }
+  .form-group input, .form-group select, .form-group textarea { width: 100%; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 15px; padding: 13px 15px; border-radius: 2px; outline: none; transition: border-color 0.2s, background 0.2s; appearance: none; }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--gold); background: rgba(201,168,76,0.02); }
+  .form-group select option { background: #1a1a1a; }
+  .form-group textarea { resize: vertical; min-height: 80px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+  /* ABOUT */
+  #about { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  .about-visual { position: relative; height: 480px; background: var(--gray2); border: 1px solid var(--gold-dim); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .about-monogram { font-family: 'Bebas Neue', sans-serif; font-size: 220px; color: rgba(201,168,76,0.06); line-height: 1; user-select: none; letter-spacing: -10px; }
+  .about-badge { position: absolute; bottom: 26px; right: 26px; background: var(--gold); color: var(--black); font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; padding: 8px 15px; font-weight: 500; }
+  .about-text p { font-size: 15px; color: var(--silver); line-height: 1.85; margin-bottom: 18px; }
+  .about-text p strong { color: var(--white); font-weight: 500; }
+  .gold-line { width: 36px; height: 2px; background: var(--gold); margin-bottom: 28px; }
+
+  /* CONTACT */
+  #contact { background: var(--gray); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+  .contact-item { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 30px; }
+  .contact-icon { width: 42px; height: 42px; border: 1px solid rgba(201,168,76,0.25); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 17px; }
+  .contact-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 4px; }
+  .contact-value { font-size: 15px; color: var(--white); line-height: 1.5; }
+  .contact-cta-box { background: var(--gray2); border: 1px solid var(--gold-dim); padding: 44px 40px; }
+  .contact-cta-box h3 { font-family: 'Bebas Neue', sans-serif; font-size: 38px; color: var(--white); letter-spacing: 1px; margin-bottom: 14px; }
+  .contact-cta-box p { color: var(--silver); font-size: 15px; line-height: 1.7; margin-bottom: 28px; }
+
+  /* FOOTER */
+  footer { padding: 36px 60px; border-top: 1px solid var(--gold-dim); display: flex; align-items: center; justify-content: space-between; background: var(--gray); }
+  .footer-logo { display: flex; align-items: center; gap: 10px; }
+  .footer-logo .logo-mark { width: 28px; height: 28px; }
+  .footer-logo .logo-mark svg { width: 16px; height: 16px; }
+  .footer-logo-text { font-family: 'Bebas Neue', sans-serif; font-size: 17px; letter-spacing: 3px; color: var(--white); }
+  .footer-logo-text span { color: var(--gold); }
+  .footer-copy { font-family: 'DM Mono', monospace; font-size: 10px; color: rgba(176,184,193,0.45); letter-spacing: 1px; }
+  .footer-links { display: flex; gap: 24px; list-style: none; }
+  .footer-links a { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--silver); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--gold); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* MOBILE */
+  @media (max-width: 900px) {
+    nav { padding: 16px 20px; gap: 10px; }
+    .nav-links { display: none; }
+    .nav-toggle { display: block; }
+    .nav-phone { font-size: 11px; padding: 7px 10px; letter-spacing: 0; }
+    .hero { padding: 120px 24px 60px; }
+    .trust-bar { flex-direction: column; }
+    .trust-item { border-right: none; border-bottom: 1px solid var(--gold-dim); }
+    section { padding: 70px 24px; }
+    .packages { grid-template-columns: 1fr; }
+    #about { grid-template-columns: 1fr; gap: 40px; }
+    .about-visual { height: 240px; }
+    .quote-wrap { grid-template-columns: 1fr; gap: 40px; }
+    .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+    .form-row { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 20px; text-align: center; padding: 28px 24px; }
+    .footer-links { justify-content: center; }
+    .float-quote { bottom: 18px; right: 18px; font-size: 10px; padding: 11px 18px; }
+    .gallery-header { padding: 0 24px; }
+    .gallery-main { height: 260px; }
+    .gallery-thumb { min-width: 72px; height: 72px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- FLOATING QUOTE BUTTON -->
+<a href="#quote" class="float-quote">✦ &nbsp;Free Quote</a>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="logo-mark">
+      <svg viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 4h7c2.2 0 4 1.8 4 4s-1.8 4-4 4H4V4z" fill="#0D0D0D"/>
+        <path d="M11 12l4.5 5.5" stroke="#0D0D0D" stroke-width="2" stroke-linecap="round"/>
+        <path d="M16 4.5c1 1 1.5 2 1.5 3.5" stroke="#0D0D0D" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
+      </svg>
+    </div>
+    <span class="nav-logo-text">RJ<span>.</span>DETAILING</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#quote" class="nav-cta">Get a Quote</a></li>
+  </ul>
+  <a href="tel:9257255293" class="nav-phone">📞 (925) 725-5293</a>
+  <button class="nav-toggle">☰</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Pleasanton · Walnut Creek · Danville · Concord · Dublin · San Ramon</p>
+    <h1 class="hero-title">
+      Your Car<br>
+      <em>Deserves</em><br>
+      Better.
+    </h1>
+    <p class="hero-sub">RJ Detailing brings showroom-quality results straight to your driveway across the East Bay. No drop-offs. No waiting. Just a spotless ride.</p>
+    <div class="hero-actions">
+      <a href="#quote" class="btn-primary">Get a Free Quote</a>
+      <a href="#services" class="btn-ghost">See Packages</a>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-item"><div class="trust-num">5★</div><div class="trust-label">Rated Service<br>Every Time</div></div>
+  <div class="trust-item"><div class="trust-num">100+</div><div class="trust-label">Cars Detailed<br>& Counting</div></div>
+  <div class="trust-item"><div class="trust-num">0</div><div class="trust-label">Drop-Offs Needed<br>We Come to You</div></div>
+  <div class="trust-item"><div class="trust-num">3</div><div class="trust-label">Premium Packages<br>To Choose From</div></div>
+</div>
+
+<!-- GALLERY — moved above services so visitors see real work immediately -->
+<section id="gallery">
+  <div class="gallery-header reveal">
+    <p class="section-eyebrow">Recent Work</p>
+    <h2 class="section-title">Fresh Off the Detail</h2>
+    <p class="section-sub">Every car gets our full attention. See for yourself.</p>
+  </div>
+
+  <!-- Main image viewer — full-width, no black bars -->
+  <div class="gallery-main reveal">
+    <img id="g-main" src="images/car1.jpg" alt="Detailed car by RJ Detailing — East Bay">
+    <!-- Gold corner accent -->
+    <div style="position:absolute;top:0;left:0;width:40px;height:3px;background:var(--gold);pointer-events:none;"></div>
+    <div style="position:absolute;top:0;left:0;width:3px;height:40px;background:var(--gold);pointer-events:none;"></div>
+    <!-- Nav arrows -->
+    <button onclick="goPrev()" aria-label="Previous" style="position:absolute;top:50%;left:20px;transform:translateY(-50%);background:rgba(13,13,13,0.75);border:1px solid rgba(201,168,76,0.45);color:#C9A84C;width:48px;height:48px;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:3;transition:background 0.2s;">&#8592;</button>
+    <button onclick="goNext()" aria-label="Next" style="position:absolute;top:50%;right:20px;transform:translateY(-50%);background:rgba(13,13,13,0.75);border:1px solid rgba(201,168,76,0.45);color:#C9A84C;width:48px;height:48px;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:3;transition:background 0.2s;">&#8594;</button>
+    <!-- Counter -->
+    <div style="position:absolute;bottom:16px;left:20px;background:rgba(13,13,13,0.7);padding:6px 14px;font-family:monospace;font-size:11px;letter-spacing:2px;color:rgba(255,255,255,0.65);z-index:2;">
+      <span id="g-counter">1 / 7</span>
+    </div>
+    <!-- Bottom gradient label -->
+    <div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,0.5) 0%,transparent 100%);padding:44px 22px 22px;pointer-events:none;z-index:1;">
+      <p style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--gold);text-transform:uppercase;">RJ Detailing · East Bay, CA</p>
+    </div>
+  </div>
+
+  <!-- Horizontal thumbnail strip — full-width, object-fit: cover, no black space -->
+  <div class="gallery-thumbs">
+    <div id="g-t0" class="gallery-thumb active" onclick="gGoTo(0)">
+      <img src="images/car1.jpg" alt="Detail 1">
+    </div>
+    <div id="g-t1" class="gallery-thumb" onclick="gGoTo(1)">
+      <img src="images/car2.jpg" alt="Detail 2" style="opacity:0.55;">
+    </div>
+    <div id="g-t2" class="gallery-thumb" onclick="gGoTo(2)">
+      <img src="images/car3.jpg" alt="Detail 3" style="opacity:0.55;">
+    </div>
+    <div id="g-t3" class="gallery-thumb" onclick="gGoTo(3)">
+      <img src="images/car4.jpg" alt="Detail 4" style="opacity:0.55;">
+    </div>
+    <div id="g-t4" class="gallery-thumb" onclick="gGoTo(4)">
+      <img src="images/car5.jpg" alt="Detail 5" style="opacity:0.55;">
+    </div>
+    <div id="g-t5" class="gallery-thumb" onclick="gGoTo(5)">
+      <img src="images/car6.jpg" alt="Detail 6" style="opacity:0.55;">
+    </div>
+    <div id="g-t6" class="gallery-thumb" onclick="gGoTo(6)">
+      <img src="images/car7.jpg" alt="Detail 7" style="opacity:0.55;">
+    </div>
+  </div>
+
+  <!-- Dot nav -->
+  <div style="display:flex;justify-content:center;gap:8px;margin-top:20px;" id="g-dots"></div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="reveal">
+    <p class="section-eyebrow">What We Offer</p>
+    <h2 class="section-title">Pick Your Package</h2>
+    <p class="section-sub">Every detail is done with professional-grade products and obsessive care. Reach out for a custom quote on any package.</p>
+  </div>
+  <div class="packages reveal">
+    <div class="package">
+      <p class="pkg-tag">01 — Starter</p>
+      <p class="pkg-name">The Refresh</p>
+      <div class="pkg-divider"></div>
+      <p class="pkg-note">Contact us for a quote</p>
+      <ul class="pkg-features">
+        <li>Exterior hand wash & dry</li>
+        <li>Wheel & tire clean</li>
+        <li>Windows inside & out</li>
+        <li>Interior vacuum</li>
+        <li>Dashboard & console wipe</li>
+      </ul>
+      <a href="#quote" class="btn-ghost" style="display:block; text-align:center; font-size:11px;">Get a Quote</a>
+    </div>
+    <div class="package featured">
+      <p class="pkg-tag">02 — Most Popular</p>
+      <p class="pkg-name">The Full Detail</p>
+      <div class="pkg-divider"></div>
+      <p class="pkg-note">Contact us for a quote</p>
+      <ul class="pkg-features">
+        <li>Everything in The Refresh</li>
+        <li>Clay bar treatment</li>
+        <li>Hand wax & paint protection</li>
+        <li>Full interior shampoo</li>
+        <li>Leather/vinyl conditioning</li>
+        <li>Door jambs & air vents</li>
+      </ul>
+      <a href="#quote" class="btn-primary" style="display:block; text-align:center;">Get a Quote</a>
+    </div>
+    <div class="package">
+      <p class="pkg-tag">03 — Premium</p>
+      <p class="pkg-name">The Prestige</p>
+      <div class="pkg-divider"></div>
+      <p class="pkg-note">Contact us for a quote</p>
+      <ul class="pkg-features">
+        <li>Everything in The Full Detail</li>
+        <li>One-step paint correction</li>
+        <li>Ceramic coating sealant</li>
+        <li>Engine bay wipe-down</li>
+        <li>Odor elimination treatment</li>
+        <li>Interior fabric protection</li>
+      </ul>
+      <a href="#quote" class="btn-ghost" style="display:block; text-align:center; font-size:11px;">Get a Quote</a>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE SECTION -->
+<section id="quote">
+  <div class="quote-wrap">
+    <div class="quote-left reveal">
+      <p class="section-eyebrow">Free Quote</p>
+      <h2 class="section-title">Not Sure What<br><span style="color:var(--gold);">It'll Cost?</span></h2>
+      <p style="color:var(--silver); font-size:15px; line-height:1.75; margin-bottom:28px;">Tell us about your vehicle and we'll get back to you with a custom price. No pressure, no commitment — just a straight answer.</p>
+      <ul class="quote-perks">
+        <li>Fast response — usually within a few hours</li>
+        <li>Price based on your exact vehicle & needs</li>
+        <li>No hidden fees, ever</li>
+        <li>We come to your home or office</li>
+      </ul>
+    </div>
+    <div class="quote-form reveal">
+      <p style="font-family:'DM Mono',monospace; font-size:10px; letter-spacing:3px; text-transform:uppercase; color:var(--gold); margin-bottom:24px;">Fill Out the Form Below</p>
+      <form name="quote" method="POST" data-netlify="true" netlify-honeypot="bot-field" onsubmit="handleQuote(event)">
+        <input type="hidden" name="form-name" value="quote">
+        <p style="display:none;"><input name="bot-field"></p>
+        <div class="form-row">
+          <div class="form-group">
+            <label>First Name</label>
+            <input type="text" name="first-name" placeholder="Jordan" required>
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" name="last-name" placeholder="Smith" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Phone</label>
+            <input type="tel" name="phone" placeholder="(555) 000-0000" required>
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" name="email" placeholder="you@email.com" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Vehicle (Year, Make, Model)</label>
+          <input type="text" name="vehicle" placeholder="e.g. 2022 BMW 3 Series" required>
+        </div>
+        <div class="form-group">
+          <label>Package Interest</label>
+          <select name="package">
+            <option value="" disabled selected>Which package? (or not sure)</option>
+            <option>The Refresh</option>
+            <option>The Full Detail</option>
+            <option>The Prestige</option>
+            <option>Not sure — help me decide</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Anything we should know?</label>
+          <textarea name="notes" placeholder="Pet hair, stains, smell, prepping for sale..."></textarea>
+        </div>
+        <button type="submit" class="btn-primary" style="width:100%; padding:16px; font-size:12px;">Send My Quote Request →</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" style="display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:start; padding:100px 60px; position:relative; z-index:1; background:var(--black);">
+
+  <!-- LEFT: Stats & credibility panel -->
+  <div class="reveal" style="background:var(--gray2); border:1px solid var(--gold-dim); padding:52px 44px; position:relative; overflow:hidden;">
+    <div style="position:absolute;top:0;left:0;width:60px;height:3px;background:var(--gold);"></div>
+    <div style="position:absolute;top:0;left:0;width:3px;height:60px;background:var(--gold);"></div>
+
+    <p style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:36px;">By the Numbers</p>
+
+    <div style="margin-bottom:36px;padding-bottom:36px;border-bottom:1px solid var(--gold-dim);">
+      <p style="font-family:'Bebas Neue',sans-serif;font-size:72px;color:var(--gold);line-height:1;letter-spacing:1px;">100+</p>
+      <p style="font-family:'DM Mono',monospace;font-size:11px;color:var(--silver);margin-top:6px;letter-spacing:1px;text-transform:uppercase;">Vehicles Detailed</p>
+    </div>
+
+    <div style="margin-bottom:36px;padding-bottom:36px;border-bottom:1px solid var(--gold-dim);">
+      <p style="font-family:'Bebas Neue',sans-serif;font-size:72px;color:var(--gold);line-height:1;letter-spacing:1px;">5★</p>
+      <p style="font-family:'DM Mono',monospace;font-size:11px;color:var(--silver);margin-top:6px;letter-spacing:1px;text-transform:uppercase;">Rated by Every Customer</p>
+    </div>
+
+    <div style="margin-bottom:40px;">
+      <p style="font-family:'Bebas Neue',sans-serif;font-size:72px;color:var(--gold);line-height:1;letter-spacing:1px;">0</p>
+      <p style="font-family:'DM Mono',monospace;font-size:11px;color:var(--silver);margin-top:6px;letter-spacing:1px;text-transform:uppercase;">Drop-Offs — Ever</p>
+    </div>
+
+    <div style="border-left:2px solid var(--gold);padding-left:20px;">
+      <p style="font-size:15px;color:var(--white);line-height:1.7;font-style:italic;">"I treat every car like it's my own. That's the standard."</p>
+      <p style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--gold);margin-top:12px;text-transform:uppercase;">— RJ</p>
+    </div>
+  </div>
+
+  <!-- RIGHT: About text -->
+  <div class="about-text reveal">
+    <p class="section-eyebrow">About RJ</p>
+    <h2 class="section-title">Built on Pride.<br>Driven by Detail.</h2>
+    <div class="gold-line"></div>
+    <p>Hi, I'm RJ — and I started this business because I genuinely love cars. What began as detailing vehicles for friends and family turned into a full-time passion.</p>
+    <p>I got tired of seeing people pay good money at car washes only to drive away with <strong>streaky windows and damp seats</strong>. You deserve better than that.</p>
+    <p>RJ Detailing is fully mobile — I bring everything to you. Serving <strong>Pleasanton, Walnut Creek, Danville, Concord, Dublin, San Ramon</strong>, and surrounding cities across the East Bay.</p>
+    <p>No cutting corners. No rushing. Just results you can see.</p>
+    <br>
+    <a href="#quote" class="btn-primary">Get a Free Quote</a>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" style="background:var(--gray);">
+  <div class="reveal">
+    <p class="section-eyebrow">Contact</p>
+    <h2 class="section-title">Reach Out Directly</h2>
+    <p class="section-sub">Prefer a call or text? We respond fast.</p>
+  </div>
+  <div class="contact-grid reveal">
+    <div>
+      <div class="contact-item">
+        <div class="contact-icon">📞</div>
+        <div>
+          <p class="contact-label">Call or Text</p>
+          <p class="contact-value"><a href="tel:9257255293" style="color:inherit;text-decoration:none;">(925) 725-5293</a></p>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📧</div>
+        <div><p class="contact-label">Email</p><p class="contact-value">rjdetailingpro@gmail.com</p></div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📍</div>
+        <div>
+          <p class="contact-label">Service Area</p>
+          <p class="contact-value">Pleasanton · Walnut Creek · Danville<br>Concord · Dublin · San Ramon<br><span style="color:var(--silver);font-size:13px;">& surrounding East Bay cities</span></p>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">🕐</div>
+        <div><p class="contact-label">Hours</p><p class="contact-value">Mon–Sat: 7am–6pm<br>Sun: By appointment</p></div>
+      </div>
+    </div>
+    <div class="contact-cta-box">
+      <h3>Ready for a Spotless Ride?</h3>
+      <p>Fill out our quick quote form and we'll come back with a custom price for your vehicle — usually within a few hours.</p>
+      <a href="#quote" class="btn-primary">Get My Free Quote →</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <div class="logo-mark">
+      <svg viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 4h7c2.2 0 4 1.8 4 4s-1.8 4-4 4H4V4z" fill="#0D0D0D"/>
+        <path d="M11 12l4.5 5.5" stroke="#0D0D0D" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <span class="footer-logo-text">RJ<span>.</span>DETAILING</span>
+  </div>
+  <ul class="footer-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#quote">Get a Quote</a></li>
+  </ul>
+  <p class="footer-copy">© 2026 RJ Detailing. All rights reserved.</p>
+</footer>
+
+<script>
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 80);
+    });
+  }, { threshold: 0.08 });
+  reveals.forEach(r => observer.observe(r));
+
+  // Quote form
+  function handleQuote(e) {
+    e.preventDefault();
+    const form = e.target;
+    const btn = form.querySelector('button[type="submit"]');
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(new FormData(form)).toString()
+    })
+    .then(() => {
+      btn.textContent = '✓ Quote Request Sent!';
+      btn.style.background = '#2d6a4f';
+      btn.style.color = '#fff';
+      setTimeout(() => { btn.textContent = 'Send My Quote Request →'; btn.style.background = ''; btn.style.color = ''; btn.disabled = false; form.reset(); }, 3500);
+    })
+    .catch(() => { btn.textContent = 'Error — please try again'; btn.disabled = false; setTimeout(() => { btn.textContent = 'Send My Quote Request →'; }, 3000); });
+  }
+
+  // Gallery
+  const gSlides = ['images/car1.jpg','images/car2.jpg','images/car3.jpg','images/car4.jpg','images/car5.jpg','images/car6.jpg','images/car7.jpg'];
+  let gCurrent = 0;
+  const gMain = document.getElementById('g-main');
+  const gCounter = document.getElementById('g-counter');
+  const gDotsEl = document.getElementById('g-dots');
+
+  // Build dots
+  gSlides.forEach((_,i) => {
+    const d = document.createElement('div');
+    d.style.cssText = `width:8px;height:8px;border-radius:50%;background:${i===0?'#C9A84C':'rgba(255,255,255,0.2)'};cursor:pointer;transition:background 0.3s;flex-shrink:0;`;
+    d.onclick = () => gGoTo(i);
+    gDotsEl.appendChild(d);
+  });
+
+  function updateGallery() {
+    gMain.style.opacity = '0';
+    setTimeout(() => { gMain.src = gSlides[gCurrent]; gMain.style.opacity = '1'; }, 220);
+    gCounter.textContent = (gCurrent + 1) + ' / ' + gSlides.length;
+
+    // Update all 7 thumbnails
+    gSlides.forEach((_, i) => {
+      const el = document.getElementById('g-t' + i);
+      if (!el) return;
+      const img = el.querySelector('img');
+      const isActive = i === gCurrent;
+      img.style.opacity = isActive ? '1' : '0.55';
+      el.classList.toggle('active', isActive);
+    });
+
+    // Dots
+    gDotsEl.querySelectorAll('div').forEach((d, i) => {
+      d.style.background = i === gCurrent ? '#C9A84C' : 'rgba(255,255,255,0.2)';
+    });
+  }
+
+  function gGoTo(n) { gCurrent = (n + gSlides.length) % gSlides.length; updateGallery(); }
+  function goNext() { gGoTo(gCurrent + 1); }
+  function goPrev() { gGoTo(gCurrent - 1); }
+
+  updateGallery();
+</script>
+</body>
+</html>
